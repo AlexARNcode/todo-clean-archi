@@ -9,6 +9,10 @@ export class InMemoryTaskRepository implements TaskRepository {
     this.tasks.push(task);
   }
 
+   async findById(id: string): Promise<Task | null> {
+    return this.tasks.find(t => t.id.value === id) ?? null;
+  }
+
   async findAll(): Promise<Task[]> {
     return [...this.tasks]; 
   }
