@@ -5,7 +5,7 @@ import type { TaskTitle } from "./TaskTitle";
 export class Task {
   readonly id: TaskId;
   readonly title: TaskTitle;
-  private _status: TaskStatus;
+  public _status: TaskStatus;
 
   constructor(id: TaskId, title: TaskTitle) {
     this.id = id;

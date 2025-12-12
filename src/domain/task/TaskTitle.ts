@@ -4,7 +4,7 @@ export class InvalidTaskTitleError extends Error {
 
 
 export class TaskTitle {
-    private readonly _value: string;
+    readonly _value: string;
 
     private constructor(value: string) {
         this._value = value;
