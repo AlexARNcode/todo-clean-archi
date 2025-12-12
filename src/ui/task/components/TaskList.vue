@@ -12,7 +12,10 @@ defineProps<{
 </script>
  
 <template>
-  <ul>
+  <div v-if="tasks.length === 0" class="text-center py-12 text-gray-600">
+    <p class="text-lg">No tasks yet. Add one to get started!</p>
+  </div>
+  <ul v-else class="flex flex-wrap gap-4">
     <TaskItem
       v-for="task in tasks"
       :key="task.id.value"

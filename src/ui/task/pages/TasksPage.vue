@@ -9,15 +9,17 @@ load();
 </script>
 
 <template>
-  <section>
-    <h1>Tasks</h1>
+  <section class="bg-white p-8">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-4xl font-bold text-black mb-8">Tasks</h1>
 
-    <TaskForm @submit="create" />
+      <TaskForm @submit="create" />
 
-    <TaskList
-      :tasks="tasks"
-      :onToggle="toggle"
-      :onDelete="remove"
-    />
+      <TaskList
+        :tasks="tasks"
+        :onToggle="toggle"
+        :onDelete="remove"
+      />
+    </div>
   </section>
 </template>
