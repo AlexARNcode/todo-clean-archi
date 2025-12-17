@@ -1,10 +1,7 @@
 import { ref } from "vue";
 import { taskRepository } from "@/infrastructure/repositories";
 
-import { CreateTask } from "@/application/task/usecases/CreateTask";
-import { ListTasks } from "@/application/task/usecases/ListTasks";
-import { DeleteTask } from "@/application/task/usecases/DeleteTask";
-import { ToggleTaskStatus } from "@/application/task/usecases/ToggleTaskStatus";
+import { TaskUseCaseFactory } from "@/application/task/factories/TaskUseCaseFactory";
 import { TaskAdapter, type TaskDTO } from "@/ui/task/adapters/TaskAdapter";
 
 const repo = taskRepository;
@@ -12,10 +9,11 @@ const repo = taskRepository;
 export function useTasks() {
   const tasks = ref<TaskDTO[]>([]);
 
-  const listTasks = new ListTasks(repo);
-  const createTask = new CreateTask(repo);
-  const deleteTask = new DeleteTask(repo);
-  const toggleTask = new ToggleTaskStatus(repo);
+  const factory = new TaskUseCaseFactory(repo);
+  const listTasks = factory.createListTasks();
+  const createTask = factory.createCreateTask();
+  const deleteTask = factory.createDeleteTask();
+  const toggleTask = factory.createToggleTaskStatus();
 
   async function load() {
     const fetchedTasks = await listTasks.execute();
