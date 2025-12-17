@@ -4,11 +4,11 @@ Une application Todo List simple démontrant les principes de **Clean Architectu
 
 ## Fonctionnalités
 
-- ✅ Créer des tâches avec un titre
-- ✅ Marquer une tâche comme terminée/non terminée
-- ✅ Supprimer une tâche
-- ✅ Afficher la liste des tâches
-- ✅ Persistance en mémoire (InMemoryRepository)
+- Créer des tâches avec un titre
+- Marquer une tâche comme terminée/non terminée
+- Supprimer une tâche
+- Afficher la liste des tâches
+- Persistance en mémoire (InMemoryRepository)
 
 ## Prérequis
 
@@ -46,11 +46,17 @@ Le projet est structuré en couches indépendantes:
 
 ```
 src/
-├── domain/           # Cœur métier (entités, value objects, interfaces)
+├── domain/           # Coeur métier (entités, value objects, interfaces)
 ├── application/      # Use cases (orchestration de la logique)
 ├── infrastructure/   # Implémentations techniques (repository)
 └── ui/               # Présentation (Vue 3, composants)
 ```
+
+Je me suis inspiré de ça :
+
+![alt text](image.png)
+
+J'ai conscience que ce n'est pas la seule façon de faire (on peut réunir Infrastructure et Presentation dans la même couche par exemple). Mais j'ai préféré faire comme ça pour que chaque couche ait bien sa responsabilité claire de définie.
 
 **Avantages:**
 - **Testabilité** : La logique métier est testable indépendamment de Vue et de la persistance
