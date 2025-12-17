@@ -31,7 +31,7 @@ L'application s'ouvrira sur http://localhost:5173
 ## Lancer les tests
 
 ```bash
-npm run test:unit
+npm run test
 ```
 
 Des tests unitaires couvrent:
@@ -49,7 +49,7 @@ src/
 ├── domain/           # Cœur métier (entités, value objects, interfaces)
 ├── application/      # Use cases (orchestration de la logique)
 ├── infrastructure/   # Implémentations techniques (repository)
-└── ui/              # Présentation (Vue 3, composants)
+└── ui/               # Présentation (Vue 3, composants)
 ```
 
 **Avantages:**
@@ -66,4 +66,4 @@ src/
 
 ### Résultat
 
-Les composants Vue sont **purs** : ils ne contiennent aucune logique métier. Tout est délégué aux use cases via le composable `useTasks()`.
+Les composants Vue ne contiennent aucune logique métier. Tout est délégué aux use cases via le composable `useTasks()`.
