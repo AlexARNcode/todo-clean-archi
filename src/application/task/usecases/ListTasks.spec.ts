@@ -6,14 +6,14 @@ import { TaskId } from "@/domain/task/TaskId";
 import { TaskTitle } from "@/domain/task/TaskTitle";
 
 describe("ListTasks use case", () => {
-  it("should return all tasks", async () => {
+  it("should return all tasks", () => {
     const repo = new InMemoryTaskRepository();
 
-    await repo.save(new Task(new TaskId("1"), TaskTitle.create("Task A")));
-    await repo.save(new Task(new TaskId("2"), TaskTitle.create("Task B")));
+    repo.save(new Task(new TaskId("1"), TaskTitle.create("Task A")));
+    repo.save(new Task(new TaskId("2"), TaskTitle.create("Task B")));
 
     const usecase = new ListTasks(repo);
-    const tasks = await usecase.execute();
+    const tasks = usecase.execute();
 
     expect(tasks).toHaveLength(2);
 

@@ -4,8 +4,8 @@ import { TaskStatus } from "@/domain/task/TaskStatus";
 export class ToggleTaskStatus {
   constructor(private readonly repo: TaskRepository) {}
 
-  async execute(input: { id: string }): Promise<void> {
-    const task = await this.repo.findById(input.id);
+  execute(input: { id: string }): void {
+    const task = this.repo.findById(input.id);
 
     if (!task) {
       throw new Error("Task not found");
@@ -17,6 +17,6 @@ export class ToggleTaskStatus {
       task.markAsTodo();
     }
 
-    await this.repo.save(task);
+    this.repo.save(task);
   }
 }

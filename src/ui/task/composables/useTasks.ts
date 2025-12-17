@@ -15,24 +15,24 @@ export function useTasks() {
   const deleteTask = factory.createDeleteTask();
   const toggleTask = factory.createToggleTaskStatus();
 
-  async function load() {
-    const fetchedTasks = await listTasks.execute();
+  function load() {
+    const fetchedTasks = listTasks.execute();
     tasks.value = fetchedTasks.map(TaskAdapter.toDTO);
   }
 
-  async function create(title: string) {
-    await createTask.execute({ title });
-    await load();
+  function create(title: string) {
+    createTask.execute({ title });
+    load();
   }
 
-  async function toggle(id: string) {
-    await toggleTask.execute({ id });
-    await load();
+  function toggle(id: string) {
+    toggleTask.execute({ id });
+    load();
   }
 
-  async function remove(id: string) {
-    await deleteTask.execute({ id });
-    await load();
+  function remove(id: string) {
+    deleteTask.execute({ id });
+    load();
   }
 
   return { tasks, load, create, toggle, remove };

@@ -4,8 +4,8 @@ import { TaskId } from "@/domain/task/TaskId";
 export class DeleteTask {
   constructor(private readonly repo: TaskRepository) {}
 
-  async execute(input: { id: string }): Promise<void> {
+  execute(input: { id: string }): void {
     const taskId = new TaskId(input.id);
-    await this.repo.delete(taskId);
+    this.repo.delete(taskId);
   }
 }

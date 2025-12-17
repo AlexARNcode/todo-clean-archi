@@ -5,7 +5,7 @@ import type { TaskId } from "@/domain/task/TaskId";
 export class InMemoryTaskRepository implements TaskRepository {
   private tasks: Task[] = [];
 
-  async save(task: Task): Promise<void> {
+  save(task: Task): void {
     const index = this.tasks.findIndex(t => t.id.value === task.id.value);
 
     if (index !== -1) {
@@ -15,15 +15,15 @@ export class InMemoryTaskRepository implements TaskRepository {
     }
   }
 
-  async findById(id: string): Promise<Task | null> {
+  findById(id: string): Task | null {
     return this.tasks.find(t => t.id.value === id) ?? null;
   }
 
-  async findAll(): Promise<Task[]> {
+  findAll(): Task[] {
     return [...this.tasks];
   }
 
-  async delete(id: TaskId): Promise<void> {
+  delete(id: TaskId): void {
     this.tasks = this.tasks.filter(t => t.id.value !== id.value);
   }
 }

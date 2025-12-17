@@ -6,13 +6,13 @@ import { TaskTitle } from "@/domain/task/TaskTitle";
 export class CreateTask {
   constructor(private readonly repo: TaskRepository) {}
 
-  async execute(input: { title: string }): Promise<Task> {
+  execute(input: { title: string }): Task {
     const title = TaskTitle.create(input.title);
     const id = new TaskId(crypto.randomUUID());
 
     const task = new Task(id, title);
 
-    await this.repo.save(task);
+    this.repo.save(task);
 
     return task;
   }
