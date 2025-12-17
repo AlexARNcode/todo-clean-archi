@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import type { Task } from "@/domain/task/Task";
-import type { ToggleTaskStatus } from "@/application/task/usecases/ToggleTaskStatus";
-import type { DeleteTask } from "@/application/task/usecases/DeleteTask";
+import type { TaskDTO } from "@/ui/task/adapters/TaskAdapter";
 import TaskItem from "@/ui/task/components/TaskItem.vue"
 
 defineProps<{
-  tasks: Task[];
+  tasks: TaskDTO[];
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
 }>();
@@ -18,7 +16,7 @@ defineProps<{
   <ul v-else class="flex flex-wrap gap-4">
     <TaskItem
       v-for="task in tasks"
-      :key="task.id.value"
+      :key="task.id"
       :task="task"
       :onToggle="onToggle"
       :onDelete="onDelete"

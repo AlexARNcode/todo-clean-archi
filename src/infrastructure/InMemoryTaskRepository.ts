@@ -6,27 +6,24 @@ export class InMemoryTaskRepository implements TaskRepository {
   private tasks: Task[] = [];
 
   async save(task: Task): Promise<void> {
-  const index = this.tasks.findIndex(t => t.id.value === task.id.value);
+    const index = this.tasks.findIndex(t => t.id.value === task.id.value);
 
-  if (index !== -1) {
-    // Remplace la tâche existante
-    this.tasks[index] = task;
-  } else {
-    // Ajoute une nouvelle tâche
-    this.tasks.push(task);
+    if (index !== -1) {
+      this.tasks[index] = task;
+    } else {
+      this.tasks.push(task);
+    }
   }
-}
 
-
-   async findById(id: string): Promise<Task | null> {
+  async findById(id: string): Promise<Task | null> {
     return this.tasks.find(t => t.id.value === id) ?? null;
   }
 
   async findAll(): Promise<Task[]> {
-    return [...this.tasks]; 
+    return [...this.tasks];
   }
 
-    async delete(id: TaskId): Promise<void> {
-        this.tasks = this.tasks.filter(t => t.id.value !== id.value);
-    }
+  async delete(id: TaskId): Promise<void> {
+    this.tasks = this.tasks.filter(t => t.id.value !== id.value);
+  }
 }

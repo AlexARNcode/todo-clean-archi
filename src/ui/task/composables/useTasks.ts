@@ -1,17 +1,16 @@
-import { ref, reactive } from "vue";
-import { InMemoryTaskRepository } from "@/infrastructure/InMemoryTaskRepository";
+import { ref } from "vue";
 import { taskRepository } from "@/infrastructure/repositories";
 
 import { CreateTask } from "@/application/task/usecases/CreateTask";
 import { ListTasks } from "@/application/task/usecases/ListTasks";
 import { DeleteTask } from "@/application/task/usecases/DeleteTask";
 import { ToggleTaskStatus } from "@/application/task/usecases/ToggleTaskStatus";
-import type { Task } from "@/domain/task/Task";
+import { TaskAdapter, type TaskDTO } from "@/ui/task/adapters/TaskAdapter";
 
 const repo = taskRepository;
 
 export function useTasks() {
-  const tasks = ref<Task[]>([]);
+  const tasks = ref<TaskDTO[]>([]);
 
   const listTasks = new ListTasks(repo);
   const createTask = new CreateTask(repo);
@@ -20,7 +19,7 @@ export function useTasks() {
 
   async function load() {
     const fetchedTasks = await listTasks.execute();
-    tasks.value = fetchedTasks.map(task => reactive(task));
+    tasks.value = fetchedTasks.map(TaskAdapter.toDTO);
   }
 
   async function create(title: string) {
@@ -30,7 +29,6 @@ export function useTasks() {
 
   async function toggle(id: string) {
     await toggleTask.execute({ id });
-    tasks.value = [];
     await load();
   }
 

@@ -23,7 +23,8 @@ function submit() {
     />
     <button 
       type="submit"
-      class="px-6 py-2 bg-black text-white font-semibold rounded hover:bg-gray-800 transition-colors"
+      :disabled="!title.trim()"
+      class="px-6 py-2 bg-black text-white font-semibold rounded hover:bg-gray-800 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
     >
       Add
     </button>

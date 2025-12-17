@@ -1,54 +1,69 @@
-# todo-clean
+# Todo Clean - Clean Architecture / DDD avec Vue 3
 
-This template should help get you started developing with Vue 3 in Vite.
+Une application Todo List simple démontrant les principes de **Clean Architecture** et **Domain-Driven Design (DDD)** avec Vue 3 et TypeScript.
 
-## Recommended IDE Setup
+## Fonctionnalités
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- ✅ Créer des tâches avec un titre
+- ✅ Marquer une tâche comme terminée/non terminée
+- ✅ Supprimer une tâche
+- ✅ Afficher la liste des tâches
+- ✅ Persistance en mémoire (InMemoryRepository)
 
-## Recommended Browser Setup
+## Prérequis
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- Node.js ^20.19.0 ou >=22.12.0
+- npm
 
-## Type Support for `.vue` Imports in TS
+## Lancer l'application
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
+### Installation
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
-
-```sh
+### Lancer en développement
+```bash
 npm run dev
 ```
+L'application s'ouvrira sur http://localhost:5173
 
-### Type-Check, Compile and Minify for Production
+## Lancer les tests
 
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
+```bash
 npm run test:unit
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+Des tests unitaires couvrent:
+- **Domain** : Entité `Task` et Value Object `TaskTitle`
+- **Application** : Tous les use cases (`CreateTask`, `ListTasks`, `DeleteTask`, `ToggleTaskStatus`)
 
-```sh
-npm run lint
+## Choix d'architecture
+
+### Clean Architecture 
+
+Le projet est structuré en couches indépendantes:
+
 ```
+src/
+├── domain/           # Cœur métier (entités, value objects, interfaces)
+├── application/      # Use cases (orchestration de la logique)
+├── infrastructure/   # Implémentations techniques (repository)
+└── ui/              # Présentation (Vue 3, composants)
+```
+
+**Avantages:**
+- **Testabilité** : La logique métier est testable indépendamment de Vue et de la persistance
+- **Maintenabilité** : Chaque couche a une responsabilité unique
+- **Flexibilité** : On peut remplacer le repository en mémoire par une BD sans modifier le domaine
+
+### Domain-Driven Design (DDD)
+
+- **Entité riche** (`Task`) : Encapsule la logique métier (`markAsDone()`, `markAsTodo()`)
+- **Value Objects** (`TaskId`, `TaskTitle`) : Identifiés par leur valeur, immuables et validés à la création
+- **Repository Pattern** : Interface `TaskRepository` isole l'accès aux données
+- **Use Cases** : Chaque opération métier est un use case explicite
+
+### Résultat
+
+Les composants Vue sont **purs** : ils ne contiennent aucune logique métier. Tout est délégué aux use cases via le composable `useTasks()`.
